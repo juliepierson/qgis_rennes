@@ -63,9 +63,24 @@ Les outils Whitebox sont maintenant accessibles dans la boîte à outils :
 
 <img src="illus/proc_whitebox.png" width="40%">
 
-Les outils sont documentés sur le ssite officiel, chapitre [Tools Reference](https://jblindsay.github.io/wbt_book/available_tools/index.html).
+Les outils sont documentés sur le site officiel, chapitre [Tools Reference](https://jblindsay.github.io/wbt_book/available_tools/index.html).
 
 ### OrfeoToolbox
+
+[L'OrfeoToolbox](https://www.orfeo-toolbox.org/) est une boîte à outil de télédétection développée par le CNES. Ses outils sont accessibles via l'interface graphique Monteverdi, en ligne de commande, à travers les langages Python et C++, et dans QGIS.
+
+Pour [installer l'OrfeoToolbox dans QGIS](https://docs.qgis.org/3.16/en/docs/user_manual/processing/3rdParty.html#otb-applications) :
+
+1. [Télécharger OrfeoToolbox](https://www.orfeo-toolbox.org/download/) et installer le logiciel à un endroit définitif (pas sur le bureau)
+2. Activer l'OrfeoToolbox dans la boîte à outils de QGIS : **Menu ➔ Options ➔ Traitement ➔ Fournisseurs de services ➔ OTB**, cocher **Activate**, et pointez vers les bons dossiers pour le répertoire OTB (le dossier "global" de l'application) et pour le répertoire des applications OTB (le sous-dossier /lib/otb/applications)
+
+<img src="illus/activate_otb.png" width="90%">
+
+Les outils OrfeoToolbox sont maintenant accessibles dans la boîte à outils :
+
+<img src="illus/proc_otb.png" width="40%">
+
+L'aide des outils est disponible dans la [documentation](https://www.orfeo-toolbox.org/CookBook/), rubrique [All Applications](https://www.orfeo-toolbox.org/CookBook/Applications.html).
 
 ### SAGA
 
