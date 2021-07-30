@@ -1,0 +1,30 @@
+---
+title: "QGIS Rennes 2021"
+author: "Julie"
+date: "30/07/2021"
+output: 
+  rmdformats::readthedown:
+    #css: custom.css
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Boostez votre QGIS !
+
+### Installation de plugins
+
+Pour installer la plupart des extensions dans QGIS :
+
+**Menu Extensions ➔ Installer/gérer les extensions**
+
+Si une extension n'est pas dans le dépôt officiel QGIS, on peut la télécharger à la main et la déposer dans le dossier du profil QGIS.
+
+Pour savoir où est ce dossier : 
+
+**Menu Préférences ➔ Profils utilisateurs ➔ Ouvrir le dossier du profil actif**
+
+Il faut placer les extensions dans le sous-dossier **python/plugins** (qui doit être créé si aucune extension n'est déjà installée)
+
