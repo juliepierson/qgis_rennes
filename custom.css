@@ -1,0 +1,47 @@
+#toc {
+    color: #28a6b7;
+    <!--background: red !important; -->
+}
+
+#main .nav-pills > li.active > a,
+#main .nav-pills > li.active > a:hover,
+#main .nav-pills > li.active > a:focus {
+    background-color: #28a6b7;
+}
+
+#main .nav-pills > li > a:hover {
+    background-color: #28a6b7;
+}
+
+h1, h2, h3, h4, h5, h6, legend {
+    color: #28a6b7;
+}
+
+#sidebar{
+    color: #28a6b7;
+}
+
+#nav-top span.glyphicon {
+    color: #28a6b7;
+}
+
+#toc header {
+    color: #28a6b7;
+}
+
+#toc h2 {
+    background-color: #28a6b7;
+}
+
+#main a {
+    background-image: linear-gradient(180deg,#d64a70,#d64a70);
+    color: #c7254e;
+}
+
+a:hover {
+    color: #3d1308;
+}
+
+a:visited {
+    color: #3d1308;
+}
