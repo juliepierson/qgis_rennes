@@ -22,11 +22,9 @@ Pour installer la plupart des extensions dans QGIS :
 
 Si une extension n'est pas dans le dépôt officiel QGIS, on peut la télécharger à la main et la déposer dans le dossier du profil QGIS.
 
-Pour savoir où est ce dossier : 
+Pour savoir où est ce dossier : **Menu Préférences ➔ Profils utilisateurs ➔ Ouvrir le dossier du profil actif**
 
-**Menu Préférences ➔ Profils utilisateurs ➔ Ouvrir le dossier du profil actif**
-
-Il faut placer les extensions dans le sous-dossier **python/plugins** (qui doit être créé si aucune extension n'est déjà installée)
+Dans ce cas il faut placer l'extension dans le sous-dossier **python/plugins** (qui doit être créé si aucune extension n'est déjà installée)
 
 Liste non exhaustive et subjective de quelques extensions :
 
@@ -89,6 +87,12 @@ L'aide des outils est disponible dans la [documentation](https://www.orfeo-toolb
 ## Manipulation de données
 
 ### Remplir les valeurs nulles d'un raster par les valeurs d'un autre raster
+
+Données tests : images T1 et T2 de la Petite Charnie, pour faire un mix des 2 images en prenant les valeurs de T1 là où il y a des valeurs nulles pour T2
+
+1. Mettre les 2 images à la même dimension : WhiteboxTools ➔ Resample
+2. Remplir les valeurs vides de T2 avec les valeurs de T1, avec WhiteboxTools ➔ UpdateNodataCells
+
 
 ### Statistiques zonales
 
