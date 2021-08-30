@@ -20,7 +20,7 @@ Pour installer la plupart des extensions dans QGIS :
 
 **Menu Extensions ➔ Installer/gérer les extensions**
 
-Si une extension n'est pas dans le dépôt officiel QGIS, on peut la télécharger à la main et la déposer dans le dossier du profil QGIS.
+Si une extension n'est pas dans le dépôt officiel QGIS (cas relativement rare), on peut la télécharger à la main et la déposer dans le dossier du profil QGIS.
 
 Pour savoir où est ce dossier : **Menu Préférences ➔ Profils utilisateurs ➔ Ouvrir le dossier du profil actif**
 
@@ -31,17 +31,18 @@ Liste non exhaustive et subjective de quelques extensions :
 - [Data Plotly](https://github.com/ghtmtt/DataPlotly) : visualiser des données sous forme de graphiques (histogrammes, nuages de points...)
 - [dzetsaka : Classification tool](https://github.com/nkarasiak/dzetsaka/
 ) : classification semi-automatique
-- [French Locator Filter](https://oslandia.gitlab.io/qgis/french_locator_filter/) et [Nominatim Locator Filter](https://github.com/rduivenvoorde/nominatim_locator_filter) : : zoomer sur des lieux précis en tapant un nom de lieu dans la barre de recherche en bas à gauche, respectivement avec l'API de la BAN et avec Nominatim
+- [French Locator Filter](https://oslandia.gitlab.io/qgis/french_locator_filter/) et [Nominatim Locator Filter](https://github.com/rduivenvoorde/nominatim_locator_filter) : zoomer sur des lieux précis en tapant un nom de lieu dans la barre de recherche en bas à gauche, respectivement avec l'API de la BAN et avec Nominatim
 - [GéoBretagne](https://github.com/geobretagne/qgis-plugin/wiki) : accéder facilement aux données de Géobretagne (orthophotos, altimétrie, cadastre, limites administratives...)
 - [MapSwipe Tool](https://github.com/lmotta/mapswipetool_plugin/wiki) : comparer des rasters, avec une "glissière"
 - [mmqgis](http://michaelminn.com/linux/mmqgis) : une collection d'outils avec notamment un outil de géocodage
 - [Processing R Provider](https://north-road.github.io/qgis-processing-r) : utiliser des scripts R dans QGIS
-- [QGIS Resource sharing](http://qgis-contribution.github.io/QGIS-ResourceSharing/) : récupérer dans une base commune différents types de ressources, comme des styles de couches et des scripts R !
+- [QGIS Resource sharing](http://qgis-contribution.github.io/QGIS-ResourceSharing/) : récupérer dans une base commune différents types de ressources, notamment des scripts
 - [QGIS2threejs](https://qgis2threejs.readthedocs.io/en/docs/) : exporter un projet QGIS avec un MNT vers une vue 3D au format HTML, visible dans un navigateur
 - [QuickOSM](https://docs.3liz.org/QuickOSM/) : récupérer des données OSM directement dans QGIS
-- [RasterTimeseriesManager](https://raster-timeseries-manager.readthedocs.io/) : exploration de séries temporelles d'images satellite (celui-là je ne l'ai pas testé !)
+- [RasterTimeseriesManager](https://raster-timeseries-manager.readthedocs.io/) : exploration de séries temporelles d'images satellite (celui-là je ne l'ai pas testé)
 - [SCP-Plugin](https://fromgistors.blogspot.com/p/semi-automatic-classification-plugin.html) : récupérer des images satellite, pré- et post-traitement et classification semi-automatique (ce plugin est pratiquement un logiciel en soi !)
 
+Des outils d'autres logiciels SIG sont également accessibles via QGIS, notamment ceux de [Grass](https://docs.qgis.org/3.16/en/docs/user_manual/processing/3rdParty.html?highlight=saga#grass) mais aussi, de manière parfois moins connue...
 
 ### Les outils Whitebox
 
@@ -80,9 +81,111 @@ Les outils OrfeoToolbox sont maintenant accessibles dans la boîte à outils :
 
 L'aide des outils est disponible dans la [documentation](https://www.orfeo-toolbox.org/CookBook/), rubrique [All Applications](https://www.orfeo-toolbox.org/CookBook/Applications.html).
 
+### Données LiDAR avec LAStools
+
+[LAStools](https://rapidlasso.com/lastools/) est une collection d'outils pour manipuler des données LiDAR développée par Martin Isenburg. Pour [y accéder via QGIS](https://docs.qgis.org/3.16/en/docs/user_manual/processing/3rdParty.html?highlight=saga#lastools), il faut :
+
+1. [Installer LAStools](https://rapidlasso.com/LAStools/)
+2. Installer le plugin QGIS **LAStools**
+
+Sous Linux, il faut également installer Wine et spécifier le répertoire Wine dans les paramètres de la toolbox (/usr/bin sous Ubuntu).
+
+Les outils LAStools sont ensuite disponibles dans la toolbox de QGIS :
+
+<img src="illus/proc_lastools.png" width="40%">
+
+### QGIS et R
+
+On peut facilement utiliser Python dans QGIS pour faire appel aux outils de QGIS et automatiser des tâches. Il est aussi possible d'utiliser R dans QGIS grâce au plugin **Processing R Provider**.
+
+[Ce tutoriel](https://docs.qgis.org/3.16/en/docs/training_manual/processing/r_intro.html) décrit comment créer un script R pour créer un graphique à partir des données attributaires d'une couche vecteur.
+
+Pour avoir des exemples de scripts R pour QGIS :
+
+1. Installez le plugin **QGIS Resource Sharing**
+2. Il faut ensuite chargez les scripts R rendus disponibles via cette extension : **menu
+Extensions → Resource sharing → Resource sharing**, dans **All collections**, avec un filtre sur qgis r, installez **QGIS R script collection**.
+
+Vous avez maintenant accès dans la boîte à outils à 60 scripts R créés par des utilisateur
+QGIS :
+
+<img src="illus/proc_r.png" width="40%">
+
+On peut aussi appeler les fonctions de QGIS dans R avec le package [qgisprocess](https://github.com/paleolimbot/qgisprocess).
+
 ### SAGA
 
+[SAGA](http://www.saga-gis.org/) est un logiciel SIG libre développé initialement par une équipe du Département de Géographie Physique de l'Université de Göttingen en Allemagne2, mais maintenu aujourd'hui par une équipe de développeurs internationale, dont le noyau est l'Université de Hambourg en Allemagne.
+
+SAGA peut être utilisé comme un logiciel indépendant, ou bien via Python ou QGIS. Il dispose de [nombreuses librairies](http://www.saga-gis.org/saga_tool_doc/7.4.0/) contenant chacune plusieurs outils, notamment de traitement de données images et altimétriques, chemins de moindre coût, statistiques spatiales.
+
+Sous Windows, a priori [pas besoin d'installer SAGA](https://docs.qgis.org/3.16/en/docs/user_manual/processing/3rdParty.html?highlight=saga#saga), il est compris dans l'installation de QGIS.
+
+Sous Ubuntu, tester si SAGA est installé avec
+```{}
+saga_cmd
+```
+Et si ça n'est pas le cas l'installer avec
+```{}
+sudo apt install saga
+```
+Sous MacOSX, désolée je n'ai pas testé, à voir si SAGA est inclus ou non dans l'installation de QGIS ?
+
+SAGA doit normalement être visible dans les fournisseurs de services de la toolbox QGIS :
+
+<img src="illus/activate_saga.png" width="80%">
+
+Et les outils disponibles :
+
+<img src="illus/proc_saga.png" width="40%">
+
 ### Ajout de flux de données
+
+Il est possible de visualiser directement dans un SIG des données accessibles sur un serveur, sans devoir préalablement les télécharger sur votre ordinateur. Ceci se fait via des flux. Les deux types de flux les plus courant permettant ceci sont les flux WMS (Web Map Service) et WFS (Web Feature Service).
+
+- Les flux WMS vont vous permettre d'afficher des couches raster, non modifiables.
+- Les flux WFS vous permettront d'afficher des couches vecteur, non directement modifiables mais que vous pourrez ensuite télécharger au format shapefile.
+
+Il existe également des **flux WCS (Web Coverage Service) permettant l'affichage et le téléchargement de données raster.
+
+[Pas à pas détaillé de l'ajout de flux WMS et WFS dans QGIS](https://ouvrir.passages.cnrs.fr/tutoqgis/03_02_donnees_flux.php)
+
+Quelques pistes pour trouver des adresses de flux :
+
+- France : [flux gratuits de l'IGN](https://geoservices.ign.fr/services-web-decouverte) + https://wxs.ign.fr/corinelandcover/geoportail/r/wms pour Corine Land Cover
+- France : [liste de flux WMS et WFS](https://github.com/igeofr/qgis2/tree/master/flux) créée et maintenue par l'utilisateur github [igeofr](https://github.com/igeofr) avec notamment ceux des IDG régionales
+- France : [les flux du BRGM](https://infoterre.brgm.fr/page/geoservices-ogc)
+- France : [les flux de l'INPN](https://inpn.mnhn.fr/telechargement/cartes-et-information-geographique) (zonages de protection d'espaces naturels)
+- Europe : le [portail Inspire](https://inspire-geoportal.ec.europa.eu/) contient une liste de données dont une bonne partie est accessible via des flux WMS
+- Europe : WMS pour Corine Land Cover : https://image.discomap.eea.europa.eu/arcgis/services/Corine/CLC2000_WM/MapServer/WMSServer?version=1.3.0 (également valable pour 2006, 2012 et 2018 en modifiant l'année)
+- bathymétrie mondiale : [GEBCO](https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/)
+- moteur de recherche de flux [GeoSeer](https://www.geoseer.net/)
+- moteur de recherche de flux [Spatineo](https://directory.spatineo.com/)
+
+### Ajout de fonds de carte en ligne
+
+Il est possible d'afficher dans QGIS des fonds de carte « en ligne  », comme par exemple les fonds OpenStreetMap ou Google Maps. Ces fonds ne seront pas modifiables, la seule possibilité étant de les rendre plus ou moins transparents pour les atténuer.
+
+De tels fonds sont dits « tuilés  » car ils sont découpés en carrés jointifs (tuiles) pour faciliter l'affichage, à chaque niveau de zoom. On parle également de tuiles XYZ, X et Y correspondant à la position de la tuile et Z au niveau de zoom. Pour en savoir plus : [la page (en anglais) de wikipedia](https://en.wikipedia.org/wiki/Tiled_web_map).
+
+Il s'agit des fonds visibles dans l'explorateur dans la rubrique **XYZ Tiles**, par défaut il y a un fonds OpenStreetMap :
+
+<img src="illus/3_4_xyz_tiles.png" width="27%">
+
+[Pas à pas détaillé de l'ajout d'un fonds XYZ](https://ouvrir.passages.cnrs.fr/tutoqgis/03_04_fonds_carte.php)
+
+Quelques fonds disponible :
+
+- voir [au bas de cette page](https://www.spatialbias.com/2018/02/qgis-3.0-xyz-tile-layers/)
+- les fonds [OpenStreetMap](https://wiki.openstreetmap.org/wiki/Tile_servers)
+- la carte de Cassini : https://maps.georeferencer.com/georeferences/eed2f377-3a52-581b-855b-1181c0fb6801/2019-05-05T10:04:59.673274Z/map/{z}/{x}/{y}.png?key=vmpj8mWw3UzR3ZtEQfgV
+
+Attention, certaines url de serveurs de tuiles sont sous la forme `http://a.tile.stamen.com/toner/${z}/${x}/${y}.png` : il faut alors supprimer les **$** pour obtenir `http://a.tile.stamen.com/toner/{z}/{x}/{y}.png`.
+
+Voici 2 exemple de fonds utilisant les données OpenStreetMap (Carto Positron et Carto Dark Matter), qui sont également disponibles sans toponymie :
+
+<iframe width='45%' height='400' frameborder='0' src='https://documentation.carto.com/viz/397fd294-a82b-4470-90cc-6153ebad5bf6/embed_map?zoom=12&center_lat=48.1089&center_lon=-1.65' allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen data-external="1"></iframe>
+<iframe width='45%' height='400' frameborder='0' src='https://documentation.carto.com/viz/d4902be4-84bb-11e4-938e-0e4fddd5de28/embed_map?zoom=12&center_lat=48.1089&center_lon=-1.65' allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen data-external="1"></iframe>
 
 ## Manipulation de données
 
