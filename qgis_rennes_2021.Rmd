@@ -184,18 +184,155 @@ Attention, certaines url de serveurs de tuiles sont sous la forme `http://a.tile
 
 Voici 2 exemple de fonds utilisant les données OpenStreetMap (Carto Positron et Carto Dark Matter), qui sont également disponibles sans toponymie :
 
-<iframe width='45%' height='400' frameborder='0' src='https://documentation.carto.com/viz/397fd294-a82b-4470-90cc-6153ebad5bf6/embed_map?zoom=12&center_lat=48.1089&center_lon=-1.65' allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen data-external="1"></iframe>
-<iframe width='45%' height='400' frameborder='0' src='https://documentation.carto.com/viz/d4902be4-84bb-11e4-938e-0e4fddd5de28/embed_map?zoom=12&center_lat=48.1089&center_lon=-1.65' allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen data-external="1"></iframe>
+<iframe width='45%' height='400' frameborder='0' src='https://documentation.carto.com/viz/397fd294-a82b-4470-90cc-6153ebad5bf6/embed_map?zoom=12&center_lat=48.1089&center_lon=-1.68' allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen data-external="1"></iframe>
+<iframe width='45%' height='400' frameborder='0' src='https://documentation.carto.com/viz/d4902be4-84bb-11e4-938e-0e4fddd5de28/embed_map?zoom=12&center_lat=48.1089&center_lon=-1.68' allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen data-external="1"></iframe>
 
 ## Manipulation de données
 
+### Un truc utile au préalable
+
+Vous l'aurez compris si vous avez installé tout ce qui est cité plus haut, la toolbox est là où tout se passe dans QGIS. On peut paramétrer son fonctionnement (par ex. si la fenêtre d'un outil reste ouverte ou non une fois l'exécution terminée), faire apparaître certains outils dans les menus QGIS :
+
+<img src="illus/proc_options.png" width="25%">
+
+Mais un truc bien utile est l'historique de la toolbox, accessible via le menu Traitement ➔ Historique ou bien avec ce bouton :
+
+<img src="illus/proc_hist.png" width="25%">
+
+Ici, vous avez accès à toutes les fois où vous avez lancé un outil de la toolbox, classés par date. En sélectionnant une ligne, vous pouvez voir dessous la commande Python correspondante, pratique si vous vouler faire un script pour automatiser un traitement.
+
+Si vous double-cliquez sur une ligne, la fenêtre de l'outil s'ouvre **avec les mêmes paramètres que lorsque vous l'avez lancé cette fois-là**. Ce qui veut dire que si vous avez passé 10 minutes à sélectionner tous les bons paramètres mais que vous voulez finalement en changer un seul, vous gagnerez du temps en passant par l'historique. C'est aussi très utile aussi pour vous rappeler ce que vous avez fait la veille exactement !
+
 ### Remplir les valeurs nulles d'un raster par les valeurs d'un autre raster
 
-Données tests : images T1 et T2 de la Petite Charnie, pour faire un mix des 2 images en prenant les valeurs de T1 là où il y a des valeurs nulles pour T2
+Pour tester cette opération, nous allons utiliser 2 rasters avec des données altimétriques ou bathymétriques, mais vous pouvez travailler sur les données de votre choix.
 
-1. Mettre les 2 images à la même dimension : WhiteboxTools ➔ Resample
-2. Remplir les valeurs vides de T2 avec les valeurs de T1, avec WhiteboxTools ➔ UpdateNodataCells
+- **srtm_35_03.tif** : données d'altitude SRTM pour une zone couvrant Ouessant et les îles Scilly à environ 60m de résolution, téléchargées sur [SRTM Tile Grabber](http://dwtkns.com/srtm/)
+- **ouessant_SRTM15Plus.tif** : données bathymétriques et altimétriques pour Ouessant à environ 500m de résolution, téléchargées sur [opentopography](https://portal.opentopography.org/raster?opentopoID=OTSRTM.122019.4326.1)
+
+<img src="illus/ouessant_srtm.png" width="40%">
+<img src="illus/ouessant_srtm15.png" width="40%">
+
+L'objectif est de **remplir les valeurs nulles de *srtm_35_03* par les valeurs de *ouessant_SRTM15Plus***. Il y a plus d'une manière de procéder, mais ici nous allons utiliser les outils whitebox qui sont pratiques pour gérer les valeurs nulles.
+
+Les 2 images ayant des résolutions différentes, **la première étape est de rééchantillonner *ouessant_SRTM15Plus* à la même résolution que *srtm_35_03***.
+
+**Boîte à outils QGIS ➔ WhiteboxTools ➔ Image Processing Tools ➔ Resample** (pour trouver l'outil plus facilement, vous pouvez taper **resample** dans la barre de recherche) :
+
+<img src="illus/proc_resample.png" width="40%">
+
+Paramétrez cet outil pour rééchantillonner **ouessant_SRTM15Plus** à la même résolution que **srtm_35_03**, sans renseigner directement une taille de cellule mais en sélectionnant **srtm_35_03** comme raster modèle.
+
+<img src="illus/resample.png" width="95%">
+
+Il ne reste plus ensuite qu'à remplir les valeurs nulles de **srtm_35_03** par celle de ce nouveau raster :
+
+**Boîte à outils QGIS ➔ WhiteboxTools ➔ GIS Analysis - Overlay Tools ➔ UpdateNodataCells** (pour trouver l'outil plus facilement, vous pouvez taper **nodata** dans la barre de recherche).
+
+<img src="illus/updatenodatacells.png" width="90%">
+
+Le résultat doit ressembler à ceci :
+
+<img src="illus/updatenodatacells_res.png" width="60%">
+
+Cette image possède la même emprise et résolution que celle utilisée comme raster modèle pour le rééchantillonnage.
+
+Si on ne travaille que sur une zone précise, par exemple sur Ouessant, une étape préalable peut être de découper srtm_35_03. Pour trouver un outil adéquat, tapez par exemple **clip** dans la barre de recherche de la toolbox :
+
+<img src="illus/proc_clip.png" width="40%">
+
+La recherche renvoie 4 outils qui semblent appropriés. Les outils SAGA et Whitebox nécessitent une couche vecteur créée au préalable, et les 2 outils GDAL permettent l'utilisation d'une couche raster comme masque ou bien l'utilisation d'une emprise créée manuellement.
 
 
-### Statistiques zonales
+### Statistiques zonales : raster vers vecteur
+
+L'idée est, à partir d'une couche raster et d'une couche de polygones, de récupérer pour chaque polygone des statistiques sur les pixels correspondant du raster : nombre de pixels, moyenne, médiane, valeurs minimum et maximum...
+
+Ici nous nous servirons des données suivantes :
+
+- **srtm_35_03_ouessant** pour la couche raster
+- **DIVCAD_ouessant** pour la couche vecteur (extraction pour Ouessant de la couche DIVCAD de la BD Parcellaire IGN, ajout d'un champ ID unique)
+
+<img src="illus/zonalstats_vect.png" width="60%">
+
+2 outils permettent cette opération :
+
+- l'outil natif QGIS [Statistiques de zone](https://docs.qgis.org/3.16/en/docs/user_manual/processing_algs/qgis/rasteranalysis.html?highlight=zonal#zonal-statistics), qui permet le calcul de 12 statistiques au choix : compte, somme, moyenne, médiane, écart-type, min, max, plage, minorité, majorité, variété et variance
+- l'outil OTB [ZonalStatistics](https://www.orfeo-toolbox.org/CookBook/Applications/app_ZonalStatistics.html?highlight=zonal) qui calcule 5 statistiques : compte, moyenne, écart-type, min et max
+
+Si on teste ces 2 outils, on s'aperçoit qu'il y a des différences entre les 2 résultats. Une première explication est dûe au fait que la couche vecteur de départ est multi-partie : l'outil QGIS renvoie un résultat multi-partie tandis que l'outil OTB renvoie un résultat mono-partie. Certains multi-polygones composés de plusieurs îles sont donc séparés dans le résultat renvoyé par l'outil OTB.
+
+Ceci est visible dans le nombre d'entités de chaque couche résultat : 
+
+- 60 avec l'outil OTB
+- 49 avec l'outil QGIS
+
+Si on transforme au préalable **DIVCAD_ouessant** en couche mono-partie avec l'outil **De morceaux multiples à morceaux uniques**, on obtient toujours des résultats légèrement différents en particulier pour le compte des pixels.
+
+Par exemple, pour le compte de pixels (count) du polygone ID = 25 :
+
+- 100 avec l'outil OTB
+- 92 avec l'outil QGIS
+
+L'outil QGIS prend uniquement en compte les pixels dont le centroïde est situé dans le polygone et qui ne sont pas sans données :
+
+<img src="illus/zonalstats_centroides_qgis.png" width="40%">
+
+L'outil OTB prend en compte les pixels dont le centroïdes est situé dans le polygone même s'ils n'ont pas de données (indépendamment du fait que la valeur nulle -32768 soit renseignée dans les paramètres) :
+
+<img src="illus/zonalstats_centroides_otb.png" width="40%">
+
+Ceci peut conduire à de légères différences pour la moyenne par exemple. De plus, attention, si un polygone recouvre moins de 2 centroïdes de pixels, [le mode de calcul est différent pour l'outil QGIS](https://gis.stackexchange.com/a/281753/175131).
+
+Bref, chaque outil donne des résultats légèrement différents, sans que ce soit forcément explicite dans la documentation, d'où l'importance de bien connaître leur fonctionnement et de spécifier ceux utilisés pour assurer la reproductibilité de vos analyses.
+
+### Statistiques zonales : raster vers raster
+
+Le principe est le même, mais au lieu d'utiliser une couche vecteur pour définir les zones on utilise une couche raster. 4 outils permettent cette opération :
+
+- l'outil natif QGIS [Statistiques zonales de la couche raster](https://docs.qgis.org/3.16/en/docs/user_manual/processing_algs/qgis/rasteranalysis.html?highlight=zonal#raster-layer-zonal-statistics)
+- l'outil Grass [r.stats.zonal](https://grass.osgeo.org/grass76/manuals/r.stats.zonal.html)
+- l'outil SAGA [Zonal raster statistics](http://www.saga-gis.org/saga_tool_doc/7.4.0/statistics_grid_5.html)
+- l'outil Whitebox [ZonalStatistics](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/mathand_stats_tools.html#ZonalStatistics)
+
+A vous de tester si le coeur vous en dit ! Pour ça, vous pouvez rasteriser la couche de polygones **DIVCAD_ouessant**.
+
+### Statistiques zonales : % de classes
+
+Comment faire maintenant si on a un raster avec des catégories, issu par exemple d'une classification, une couche de polygones, et qu'on veut savoir pour chaque polygone le % des différentes classes du raster ?
+
+Pour la couche raster en entrée, nous allons reclasser **srtm_35_03_ouessant** en créant 5 classes d'altitude à 20m d'intervalle. Pour cela, vous pouvez utiliser l'outil QGIS **Reclassification par table** avec la table suivante par exemple :
+
+<img src="illus/table_reclass.png" width="70%">
+
+Et la couche de polygones est toujours **DIVCAD_ouessant** issue de la BD Parcellaire.
+
+Avec ces 2 couches en entrée votre projet devrait ressembler à ceci :
+
+<img src="illus/reclass_res.png" width="50%">
+
+Si on veut récupérer pour chaque polygone de **DIVCAD_ouessant** le % de chaque classe du raster, on va associer de 1 à 5 valeurs à chaque polygone. Comme d'habitude, il existe beaucoup de manières de faire, mais la manière la plus simple a priori est d'utiliser l'outil QGIS [Zonal Histogram](https://docs.qgis.org/3.16/en/docs/user_manual/processing_algs/qgis/rasteranalysis.html#zonal-histogram).
+
+Pour une raison que je ne connais pas, cet outil mouline sans donner de résultat si les couches en entrée ont le SCR IGNF:LAMB93. Nous allons donc au préalable [modifier leur SCR](https://ouvrir.passages.cnrs.fr/tutoqgis/02_04_changer_systeme.php#II42) pour qu'elles soient toutes 2 en Lambert 93 EPSG:2154, qui est un SCR équivalent.
+
+*C'est peut-être dû non pas au SCR mais au fait que les pixels ne sont pas carrés pour srtm_35_03_ouessant ?*
+
+L'outil est différent pour les vecteurs et rasters :
+
+<img src="illus/proc_proj.png" width="45%">
+
+Une fois les 2 couches en EPSG:2154, on peut utiliser l'outil **Zonal Histogram** :
+
+<img src="illus/proc_zonal_histogram.png" width="35%">
+
+Il faut spécifier en entrée la couche raster reprojetée et la couche vecteur reprojetée. Cet outil crée une nouvelle couche vecteur avec la même géométrie et les mêmes attributs que la couche vecteur en entrée, ainsi qu'une colonne supplémentaire par classe dans le raster en entrée. Chacune de ces colonnes contient le nombre de pixels pour la classe concernée.
+
+<img src="illus/zonal_hist_table.png" width="95%">
+
+On peut en déduire avec la [calculatrice de champ](https://ouvrir.passages.cnrs.fr/tutoqgis/07_02_calculer.php) des pourcentages de surface pour chacune des classes, à partir :
+
+- des valeurs de ces nouvelles colonnes
+- de la surface d'un pixel du raster en entrée (les dimensions des pixels sont visibles dans les propriétés de la couche, rubrique **Informations**)
+- de la taille de chaque polygone, avec la formule **$area**
+
 
