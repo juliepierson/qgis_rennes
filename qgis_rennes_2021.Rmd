@@ -3,11 +3,11 @@ title: "QGIS Rennes 2021"
 author: "Julie"
 date: "30/07/2021"
 output: 
-  pdf_document:
-    toc: true
-    toc_depth: 3
- # rmdformats::readthedown:
- #   toc_depth: 3
+  # pdf_document:
+  #   toc: true
+  #   toc_depth: 3
+ rmdformats::readthedown:
+   toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}
