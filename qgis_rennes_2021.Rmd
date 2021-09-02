@@ -3,9 +3,11 @@ title: "QGIS Rennes 2021"
 author: "Julie"
 date: "30/07/2021"
 output: 
-  rmdformats::readthedown:
-    #css: custom.css
+  pdf_document:
+    toc: true
     toc_depth: 3
+ # rmdformats::readthedown:
+ #   toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}
@@ -18,11 +20,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Pour installer la plupart des extensions dans QGIS :
 
-**Menu Extensions ➔ Installer/gérer les extensions**
+**Menu Extensions → Installer/gérer les extensions**
 
 Si une extension n'est pas dans le dépôt officiel QGIS (cas relativement rare), on peut la télécharger à la main et la déposer dans le dossier du profil QGIS.
 
-Pour savoir où est ce dossier : **Menu Préférences ➔ Profils utilisateurs ➔ Ouvrir le dossier du profil actif**
+Pour savoir où est ce dossier : **Menu Préférences → Profils utilisateurs → Ouvrir le dossier du profil actif**
 
 Dans ce cas il faut placer l'extension dans le sous-dossier **python/plugins** (qui doit être créé si aucune extension n'est déjà installée)
 
@@ -54,15 +56,19 @@ Les outils Whitebox peuvent s'utiliser en ligne de commande, à travers des lang
 
 1. Télécharger le plugin **WhiteboxTools for Processing**. Ce plugin n'est pas dans le dépôt officiel QGIS, il faut ajouter le dépôt d'Alex Bruy qui se trouve à cette url : `https://plugins.bruy.me/plugins/plugins.xml` (comme indiqué [ici](https://jblindsay.github.io/wbt_book/qgis_plugin.html#installation-of-the-plugin))
 2. [Télécharger WhiteboxTools](https://www.whiteboxgeo.com/download-whiteboxtools/) et dézipper le fichier à l'emplacement de votre choix (il ne faudra plus bouger l'application ensuite, donc pas sur le bureau)
-3. Activer les outils whitebox dans la boîte à outils de QGIS : **Menu ➔ Options ➔ Traitement ➔ Fournisseurs de services ➔ WhiteboxTools**, pointez vers le fichier **whitebox_tools** là où vous l'avez installé, normalement dans un dossier **WBT**.
+3. Activer les outils whitebox dans la boîte à outils de QGIS : **Menu → Options → Traitement → Fournisseurs de services → WhiteboxTools**, pointez vers le fichier **whitebox_tools** là où vous l'avez installé, normalement dans un dossier **WBT**.
 
-<img src="illus/activate_whitebox.png" width="90%">
+```{r, out.width = "90%", echo=FALSE}
+knitr::include_graphics("illus/activate_whitebox.png")
+```
 
 Les outils Whitebox sont maintenant accessibles dans la boîte à outils :
 
-<img src="illus/proc_whitebox.png" width="40%">
+```{r, out.width = "45%", echo=FALSE}
+knitr::include_graphics("illus/proc_whitebox.png")
+```
 
-Les outils sont documentés sur le site officiel, chapitre [Tools Reference](https://jblindsay.github.io/wbt_book/available_tools/index.html).
+Tous ces outils sont documentés sur le site officiel, chapitre [Tools Reference](https://jblindsay.github.io/wbt_book/available_tools/index.html).
 
 ### OrfeoToolbox
 
@@ -71,13 +77,17 @@ Les outils sont documentés sur le site officiel, chapitre [Tools Reference](htt
 Pour [installer l'OrfeoToolbox dans QGIS](https://docs.qgis.org/3.16/en/docs/user_manual/processing/3rdParty.html#otb-applications) :
 
 1. [Télécharger OrfeoToolbox](https://www.orfeo-toolbox.org/download/) et installer le logiciel à un endroit définitif (pas sur le bureau)
-2. Activer l'OrfeoToolbox dans la boîte à outils de QGIS : **Menu ➔ Options ➔ Traitement ➔ Fournisseurs de services ➔ OTB**, cocher **Activate**, et pointez vers les bons dossiers pour le répertoire OTB (le dossier "global" de l'application) et pour le répertoire des applications OTB (le sous-dossier /lib/otb/applications)
+2. Activer l'OrfeoToolbox dans la boîte à outils de QGIS : **Menu → Options → Traitement → Fournisseurs de services → OTB**, cocher **Activate**, et pointez vers les bons dossiers pour le répertoire OTB (le dossier "global" de l'application) et pour le répertoire des applications OTB (le sous-dossier /lib/otb/applications)
 
-<img src="illus/activate_otb.png" width="90%">
+```{r, out.width = "90%", echo=FALSE}
+knitr::include_graphics("illus/activate_otb.png")
+```
 
 Les outils OrfeoToolbox sont maintenant accessibles dans la boîte à outils :
 
-<img src="illus/proc_otb.png" width="40%">
+```{r, out.width = "40%", echo=FALSE}
+knitr::include_graphics("illus/proc_otb.png")
+```
 
 L'aide des outils est disponible dans la [documentation](https://www.orfeo-toolbox.org/CookBook/), rubrique [All Applications](https://www.orfeo-toolbox.org/CookBook/Applications.html).
 
@@ -92,7 +102,9 @@ Sous Linux, il faut également installer Wine et spécifier le répertoire Wine 
 
 Les outils LAStools sont ensuite disponibles dans la toolbox de QGIS :
 
-<img src="illus/proc_lastools.png" width="40%">
+```{r, out.width = "40%", echo=FALSE}
+knitr::include_graphics("illus/proc_lastools.png")
+```
 
 ### QGIS et R
 
@@ -109,13 +121,15 @@ Extensions → Resource sharing → Resource sharing**, dans **All collections**
 Vous avez maintenant accès dans la boîte à outils à 60 scripts R créés par des utilisateur
 QGIS :
 
-<img src="illus/proc_r.png" width="40%">
+```{r, out.width = "40%", echo=FALSE}
+knitr::include_graphics("illus/proc_r.png")
+```
 
 On peut aussi appeler les fonctions de QGIS dans R avec le package [qgisprocess](https://github.com/paleolimbot/qgisprocess).
 
 ### SAGA
 
-[SAGA](http://www.saga-gis.org/) est un logiciel SIG libre développé initialement par une équipe du Département de Géographie Physique de l'Université de Göttingen en Allemagne2, mais maintenu aujourd'hui par une équipe de développeurs internationale, dont le noyau est l'Université de Hambourg en Allemagne.
+[SAGA](http://www.saga-gis.org/) est un logiciel SIG libre développé initialement par une équipe du Département de Géographie Physique de l'Université de Göttingen en Allemagne, mais maintenu aujourd'hui par une équipe de développeurs internationale, dont le noyau est l'Université de Hambourg en Allemagne.
 
 SAGA peut être utilisé comme un logiciel indépendant, ou bien via Python ou QGIS. Il dispose de [nombreuses librairies](http://www.saga-gis.org/saga_tool_doc/7.4.0/) contenant chacune plusieurs outils, notamment de traitement de données images et altimétriques, chemins de moindre coût, statistiques spatiales.
 
@@ -133,20 +147,24 @@ Sous MacOSX, désolée je n'ai pas testé, à voir si SAGA est inclus ou non dan
 
 SAGA doit normalement être visible dans les fournisseurs de services de la toolbox QGIS :
 
-<img src="illus/activate_saga.png" width="80%">
+```{r, out.width = "80%", echo=FALSE}
+knitr::include_graphics("illus/activate_saga.png")
+```
 
 Et les outils disponibles :
 
-<img src="illus/proc_saga.png" width="40%">
+```{r, out.width = "40%", echo=FALSE}
+knitr::include_graphics("illus/proc_saga.png")
+```
 
 ### Ajout de flux de données
 
-Il est possible de visualiser directement dans un SIG des données accessibles sur un serveur, sans devoir préalablement les télécharger sur votre ordinateur. Ceci se fait via des flux. Les deux types de flux les plus courant permettant ceci sont les flux WMS (Web Map Service) et WFS (Web Feature Service).
+Il est possible de visualiser directement dans un SIG des données accessibles sur un serveur, sans devoir préalablement les télécharger sur votre ordinateur. Ceci se fait via des flux. Les deux types de flux les plus courant permettant ceci sont les flux **WMS (Web Map Service)** et **WFS (Web Feature Service)**.
 
 - Les flux WMS vont vous permettre d'afficher des couches raster, non modifiables.
 - Les flux WFS vous permettront d'afficher des couches vecteur, non directement modifiables mais que vous pourrez ensuite télécharger au format shapefile.
 
-Il existe également des **flux WCS (Web Coverage Service) permettant l'affichage et le téléchargement de données raster.
+Il existe également des **flux WCS (Web Coverage Service)** permettant l'affichage et le téléchargement de données raster.
 
 [Pas à pas détaillé de l'ajout de flux WMS et WFS dans QGIS](https://ouvrir.passages.cnrs.fr/tutoqgis/03_02_donnees_flux.php)
 
@@ -164,13 +182,15 @@ Quelques pistes pour trouver des adresses de flux :
 
 ### Ajout de fonds de carte en ligne
 
-Il est possible d'afficher dans QGIS des fonds de carte « en ligne  », comme par exemple les fonds OpenStreetMap ou Google Maps. Ces fonds ne seront pas modifiables, la seule possibilité étant de les rendre plus ou moins transparents pour les atténuer.
+Il est possible d'afficher dans QGIS des fonds de carte « en ligne », comme par exemple les fonds OpenStreetMap ou Google Maps. Ces fonds ne seront pas modifiables, la seule possibilité étant de les rendre plus ou moins transparents pour les atténuer.
 
-De tels fonds sont dits « tuilés  » car ils sont découpés en carrés jointifs (tuiles) pour faciliter l'affichage, à chaque niveau de zoom. On parle également de tuiles XYZ, X et Y correspondant à la position de la tuile et Z au niveau de zoom. Pour en savoir plus : [la page (en anglais) de wikipedia](https://en.wikipedia.org/wiki/Tiled_web_map).
+De tels fonds sont dits « tuilés » car ils sont découpés en carrés jointifs (tuiles) pour faciliter l'affichage, à chaque niveau de zoom. On parle également de tuiles XYZ, X et Y correspondant à la position de la tuile et Z au niveau de zoom. Pour en savoir plus : [la page (en anglais) de wikipedia](https://en.wikipedia.org/wiki/Tiled_web_map).
 
 Il s'agit des fonds visibles dans l'explorateur dans la rubrique **XYZ Tiles**, par défaut il y a un fonds OpenStreetMap :
 
-<img src="illus/3_4_xyz_tiles.png" width="27%">
+```{r, out.width = "27%", echo=FALSE}
+knitr::include_graphics("illus/3_4_xyz_tiles.png")
+```
 
 [Pas à pas détaillé de l'ajout d'un fonds XYZ](https://ouvrir.passages.cnrs.fr/tutoqgis/03_04_fonds_carte.php)
 
@@ -193,13 +213,17 @@ Voici 2 exemple de fonds utilisant les données OpenStreetMap (Carto Positron et
 
 Vous l'aurez compris si vous avez installé tout ce qui est cité plus haut, la toolbox est là où tout se passe dans QGIS. On peut paramétrer son fonctionnement (par ex. si la fenêtre d'un outil reste ouverte ou non une fois l'exécution terminée), faire apparaître certains outils dans les menus QGIS :
 
-<img src="illus/proc_options.png" width="25%">
+```{r, out.width = "25%", echo=FALSE}
+knitr::include_graphics("illus/proc_options.png")
+```
 
-Mais un truc bien utile est l'historique de la toolbox, accessible via le menu Traitement ➔ Historique ou bien avec ce bouton :
+Mais un truc bien utile est l'historique de la toolbox, accessible via le **menu Traitement → Historique** ou bien avec ce bouton :
 
-<img src="illus/proc_hist.png" width="25%">
+```{r, out.width = "25%", echo=FALSE}
+knitr::include_graphics("illus/proc_hist.png")
+```
 
-Ici, vous avez accès à toutes les fois où vous avez lancé un outil de la toolbox, classés par date. En sélectionnant une ligne, vous pouvez voir dessous la commande Python correspondante, pratique si vous vouler faire un script pour automatiser un traitement.
+Ici, vous avez accès à toutes les fois où vous avez lancé un outil de la toolbox, classées par date. En sélectionnant une ligne, vous pouvez voir dessous la commande Python correspondante, pratique si vous vouler faire un script pour automatiser un traitement.
 
 Si vous double-cliquez sur une ligne, la fenêtre de l'outil s'ouvre **avec les mêmes paramètres que lorsque vous l'avez lancé cette fois-là**. Ce qui veut dire que si vous avez passé 10 minutes à sélectionner tous les bons paramètres mais que vous voulez finalement en changer un seul, vous gagnerez du temps en passant par l'historique. C'est aussi très utile aussi pour vous rappeler ce que vous avez fait la veille exactement !
 
@@ -210,39 +234,54 @@ Pour tester cette opération, nous allons utiliser 2 rasters avec des données a
 - **srtm_35_03.tif** : données d'altitude SRTM pour une zone couvrant Ouessant et les îles Scilly à environ 60m de résolution, téléchargées sur [SRTM Tile Grabber](http://dwtkns.com/srtm/)
 - **ouessant_SRTM15Plus.tif** : données bathymétriques et altimétriques pour Ouessant à environ 500m de résolution, téléchargées sur [opentopography](https://portal.opentopography.org/raster?opentopoID=OTSRTM.122019.4326.1)
 
-<img src="illus/ouessant_srtm.png" width="40%">
-<img src="illus/ouessant_srtm15.png" width="40%">
+```{r, out.width = "40%", echo=FALSE}
+knitr::include_graphics("illus/ouessant_srtm.png")
+```
+```{r, out.width = "40%", echo=FALSE}
+knitr::include_graphics("illus/ouessant_srtm15.png")
+```
 
 L'objectif est de **remplir les valeurs nulles de *srtm_35_03* par les valeurs de *ouessant_SRTM15Plus***. Il y a plus d'une manière de procéder, mais ici nous allons utiliser les outils whitebox qui sont pratiques pour gérer les valeurs nulles.
 
 Les 2 images ayant des résolutions différentes, **la première étape est de rééchantillonner *ouessant_SRTM15Plus* à la même résolution que *srtm_35_03***.
 
-**Boîte à outils QGIS ➔ WhiteboxTools ➔ Image Processing Tools ➔ Resample** (pour trouver l'outil plus facilement, vous pouvez taper **resample** dans la barre de recherche) :
+**Boîte à outils QGIS → WhiteboxTools → Image Processing Tools → Resample** (pour trouver l'outil plus facilement, vous pouvez taper **resample** dans la barre de recherche) :
 
-<img src="illus/proc_resample.png" width="40%">
+```{r, out.width = "40%", echo=FALSE}
+knitr::include_graphics("illus/proc_resample.png")
+```
 
 Paramétrez cet outil pour rééchantillonner **ouessant_SRTM15Plus** à la même résolution que **srtm_35_03**, sans renseigner directement une taille de cellule mais en sélectionnant **srtm_35_03** comme raster modèle.
 
-<img src="illus/resample.png" width="95%">
+```{r, out.width = "95%", echo=FALSE}
+knitr::include_graphics("illus/resample.png")
+```
+
+Le résultat a la même apparence que ouessant_SRTM15Plus, mais avec une taille de pixel différente.
 
 Il ne reste plus ensuite qu'à remplir les valeurs nulles de **srtm_35_03** par celle de ce nouveau raster :
 
-**Boîte à outils QGIS ➔ WhiteboxTools ➔ GIS Analysis - Overlay Tools ➔ UpdateNodataCells** (pour trouver l'outil plus facilement, vous pouvez taper **nodata** dans la barre de recherche).
+**Boîte à outils QGIS → WhiteboxTools → GIS Analysis - Overlay Tools → UpdateNodataCells** (pour trouver l'outil plus facilement, vous pouvez taper **nodata** dans la barre de recherche). Ici, on met à jour les valeurs nulles ( = la mer) de srtm_35_03 par les valeurs de la couche qu'on vient de créer en rééchantillonnant ouessant_SRTM15Plus.
 
-<img src="illus/updatenodatacells.png" width="90%">
+```{r, out.width = "90%", echo=FALSE}
+knitr::include_graphics("illus/updatenodatacells.png")
+```
 
 Le résultat doit ressembler à ceci :
 
-<img src="illus/updatenodatacells_res.png" width="60%">
+```{r, out.width = "60%", echo=FALSE}
+knitr::include_graphics("illus/updatenodatacells_res.png")
+```
 
 Cette image possède la même emprise et résolution que celle utilisée comme raster modèle pour le rééchantillonnage.
 
 Si on ne travaille que sur une zone précise, par exemple sur Ouessant, une étape préalable peut être de découper srtm_35_03. Pour trouver un outil adéquat, tapez par exemple **clip** dans la barre de recherche de la toolbox :
 
-<img src="illus/proc_clip.png" width="40%">
+```{r, out.width = "45%", echo=FALSE}
+knitr::include_graphics("illus/proc_clip.png")
+```
 
 La recherche renvoie 4 outils qui semblent appropriés. Les outils SAGA et Whitebox nécessitent une couche vecteur créée au préalable, et les 2 outils GDAL permettent l'utilisation d'une couche raster comme masque ou bien l'utilisation d'une emprise créée manuellement.
-
 
 ### Statistiques zonales : raster vers vecteur
 
@@ -253,7 +292,9 @@ Ici nous nous servirons des données suivantes :
 - **srtm_35_03_ouessant** pour la couche raster
 - **DIVCAD_ouessant** pour la couche vecteur (extraction pour Ouessant de la couche DIVCAD de la BD Parcellaire IGN, ajout d'un champ ID unique)
 
-<img src="illus/zonalstats_vect.png" width="60%">
+```{r, out.width = "60%", echo=FALSE}
+knitr::include_graphics("illus/zonalstats_vect.png")
+```
 
 2 outils permettent cette opération :
 
@@ -276,11 +317,15 @@ Par exemple, pour le compte de pixels (count) du polygone ID = 25 :
 
 L'outil QGIS prend uniquement en compte les pixels dont le centroïde est situé dans le polygone et qui ne sont pas sans données :
 
-<img src="illus/zonalstats_centroides_qgis.png" width="40%">
+```{r, out.width = "40%", echo=FALSE}
+knitr::include_graphics("illus/zonalstats_centroides_qgis.png")
+```
 
 L'outil OTB prend en compte les pixels dont le centroïdes est situé dans le polygone même s'ils n'ont pas de données (indépendamment du fait que la valeur nulle -32768 soit renseignée dans les paramètres) :
 
-<img src="illus/zonalstats_centroides_otb.png" width="40%">
+```{r, out.width = "40%", echo=FALSE}
+knitr::include_graphics("illus/zonalstats_centroides_otb.png")
+```
 
 Ceci peut conduire à de légères différences pour la moyenne par exemple. De plus, attention, si un polygone recouvre moins de 2 centroïdes de pixels, [le mode de calcul est différent pour l'outil QGIS](https://gis.stackexchange.com/a/281753/175131).
 
@@ -303,13 +348,17 @@ Comment faire maintenant si on a un raster avec des catégories, issu par exempl
 
 Pour la couche raster en entrée, nous allons reclasser **srtm_35_03_ouessant** en créant 5 classes d'altitude à 20m d'intervalle. Pour cela, vous pouvez utiliser l'outil QGIS **Reclassification par table** avec la table suivante par exemple :
 
-<img src="illus/table_reclass.png" width="70%">
+```{r, out.width = "70%", echo=FALSE}
+knitr::include_graphics("illus/table_reclass.png")
+```
 
 Et la couche de polygones est toujours **DIVCAD_ouessant** issue de la BD Parcellaire.
 
 Avec ces 2 couches en entrée votre projet devrait ressembler à ceci :
 
-<img src="illus/reclass_res.png" width="50%">
+```{r, out.width = "50%", echo=FALSE}
+knitr::include_graphics("illus/reclass_res.png")
+```
 
 Si on veut récupérer pour chaque polygone de **DIVCAD_ouessant** le % de chaque classe du raster, on va associer de 1 à 5 valeurs à chaque polygone. Comme d'habitude, il existe beaucoup de manières de faire, mais la manière la plus simple a priori est d'utiliser l'outil QGIS [Zonal Histogram](https://docs.qgis.org/3.16/en/docs/user_manual/processing_algs/qgis/rasteranalysis.html#zonal-histogram).
 
@@ -319,15 +368,21 @@ Pour une raison que je ne connais pas, cet outil mouline sans donner de résulta
 
 L'outil est différent pour les vecteurs et rasters :
 
-<img src="illus/proc_proj.png" width="45%">
+```{r, out.width = "45%", echo=FALSE}
+knitr::include_graphics("illus/proc_proj.png")
+```
 
 Une fois les 2 couches en EPSG:2154, on peut utiliser l'outil **Zonal Histogram** :
 
-<img src="illus/proc_zonal_histogram.png" width="35%">
+```{r, out.width = "35%", echo=FALSE}
+knitr::include_graphics("illus/proc_zonal_histogram.png")
+```
 
 Il faut spécifier en entrée la couche raster reprojetée et la couche vecteur reprojetée. Cet outil crée une nouvelle couche vecteur avec la même géométrie et les mêmes attributs que la couche vecteur en entrée, ainsi qu'une colonne supplémentaire par classe dans le raster en entrée. Chacune de ces colonnes contient le nombre de pixels pour la classe concernée.
 
-<img src="illus/zonal_hist_table.png" width="95%">
+```{r, out.width = "95%", echo=FALSE}
+knitr::include_graphics("illus/zonal_hist_table.png")
+```
 
 On peut en déduire avec la [calculatrice de champ](https://ouvrir.passages.cnrs.fr/tutoqgis/07_02_calculer.php) des pourcentages de surface pour chacune des classes, à partir :
 
@@ -335,4 +390,4 @@ On peut en déduire avec la [calculatrice de champ](https://ouvrir.passages.cnrs
 - de la surface d'un pixel du raster en entrée (les dimensions des pixels sont visibles dans les propriétés de la couche, rubrique **Informations**)
 - de la taille de chaque polygone, avec la formule **$area**
 
-
+A vous de jouer !
