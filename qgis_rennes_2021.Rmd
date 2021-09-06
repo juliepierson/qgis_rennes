@@ -225,7 +225,7 @@ knitr::include_graphics("illus/proc_hist.png")
 
 Ici, vous avez accès à toutes les fois où vous avez lancé un outil de la toolbox, classées par date. En sélectionnant une ligne, vous pouvez voir dessous la commande Python correspondante, pratique si vous vouler faire un script pour automatiser un traitement.
 
-Si vous double-cliquez sur une ligne, la fenêtre de l'outil s'ouvre **avec les mêmes paramètres que lorsque vous l'avez lancé cette fois-là**. Ce qui veut dire que si vous avez passé 10 minutes à sélectionner tous les bons paramètres mais que vous voulez finalement en changer un seul, vous gagnerez du temps en passant par l'historique. C'est aussi très utile aussi pour vous rappeler ce que vous avez fait la veille exactement !
+Si vous double-cliquez sur une ligne, la fenêtre de l'outil s'ouvre **avec les mêmes paramètres que lorsque vous l'avez lancé cette fois-là**. Ce qui veut dire que si vous avez passé 10 minutes à sélectionner tous les bons paramètres d'un outil et que vous voulez relancer cet outil en changeant un seul paramètre, vous gagnerez du temps en passant par l'historique. C'est aussi très utile pour vous rappeler ce que vous avez fait la veille exactement !
 
 ### Remplir les valeurs nulles d'un raster par les valeurs d'un autre raster
 
